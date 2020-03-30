@@ -1,0 +1,3 @@
+[submodule "ThreeFourteen"]
+	path = ThreeFourteen
+	url = https://github.com/KevWK314/ThreeFourteen.FinnhubClient.git
