@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Threading.Tasks;
+using InvestmentSimulator.DBFiles;
+using InvestmentSimulator.Connector;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using ThreeFourteen.Finnhub.Client;
@@ -15,12 +17,15 @@ namespace InvestmentSimulator
             var config = CreateConfiguration();
             OpenLogger(config);
             
-            Log.Information("This informational message will be written to SQLite database");
-            
-
             string apiKey = File.ReadAllText(config["finnhubkeypath"]);
             var client = new FinnhubClient(apiKey);
-            
+
+            var db = new AssetContext();
+
+            var exchangeInterface = new AssetConnector(client, db);
+            await exchangeInterface.GetExchanges();
+
+
 
             string symbol = "AAPL";
             var company = await client.Stock.GetCompany(symbol);
@@ -33,6 +38,7 @@ namespace InvestmentSimulator
 
         static ILogger OpenLogger(IConfiguration config)
         {
+            Log.Information("Logger Oppening.");
             return Log.Logger = new LoggerConfiguration()
                 .WriteTo.SQLite(config["logdbpath"])
                 .CreateLogger();
@@ -40,12 +46,15 @@ namespace InvestmentSimulator
 
         static void CloseLogger()
         {
+            Log.Information("Logger Closing.");
             Log.CloseAndFlush();
         }
 
         static IConfigurationRoot CreateConfiguration()
         {
-            string path = Path.GetFullPath("../../../../");
+            //string path = Path.GetFullPath("../../../../");
+            string path = Path.GetFullPath("../");
+            //string path = Directory.GetCurrentDirectory();
 
             return new ConfigurationBuilder()
                 //.AddInMemoryCollection()

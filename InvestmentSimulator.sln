@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29905.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InvestmentSimulator", "InvestmentSimulator\InvestmentSimulator.csproj", "{7A9AD9F7-6F2F-41F0-80B9-A0FBC8939C4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentSimulator", "InvestmentSimulator\InvestmentSimulator.csproj", "{7A9AD9F7-6F2F-41F0-80B9-A0FBC8939C4B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreeFourteen.Finnhub.Client", "ThreeFourteen\src\ThreeFourteen.Finnhub.Client\ThreeFourteen.Finnhub.Client.csproj", "{09A83B82-B785-40C9-96A1-5E406D54EA3E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{7A9AD9F7-6F2F-41F0-80B9-A0FBC8939C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7A9AD9F7-6F2F-41F0-80B9-A0FBC8939C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7A9AD9F7-6F2F-41F0-80B9-A0FBC8939C4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09A83B82-B785-40C9-96A1-5E406D54EA3E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09A83B82-B785-40C9-96A1-5E406D54EA3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09A83B82-B785-40C9-96A1-5E406D54EA3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09A83B82-B785-40C9-96A1-5E406D54EA3E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
