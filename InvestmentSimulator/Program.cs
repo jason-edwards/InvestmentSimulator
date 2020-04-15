@@ -6,7 +6,8 @@ using InvestmentSimulator.Connector;
 using Microsoft.Extensions.Configuration;
 using Serilog;
 using ThreeFourteen.Finnhub.Client;
-
+using ThreeFourteen.Finnhub.Client.Model;
+using ThreeFourteen.Finnhub.Client.Limits;
 
 namespace InvestmentSimulator
 {
@@ -16,23 +17,31 @@ namespace InvestmentSimulator
         {
             var config = CreateConfiguration();
             OpenLogger(config);
-            
+
             string apiKey = File.ReadAllText(config["finnhubkeypath"]);
             var client = new FinnhubClient(apiKey);
 
-            var db = new AssetContext();
-
-            var exchangeInterface = new AssetConnector(client, db);
-            await exchangeInterface.GetExchanges();
-
-
-
-            string symbol = "AAPL";
-            var company = await client.Stock.GetCompany(symbol);
+            var dbContext = new StockContext();
             
+            var exchangeConnector = new ExchangeConnector(client, dbContext);
+            await exchangeConnector.GetExchanges();
 
-            Console.WriteLine($"Company: {symbol},{Environment.NewLine}Description: {company.Description}");
-             
+            var stockConnector = new StockConnector(client, dbContext);
+            await stockConnector.GetSymbols("AX");
+
+            await stockConnector.GetCandles("CBA.AX", Resolution.OneMinute);
+            await stockConnector.GetCandles("CBA.AX", Resolution.OneMinute, null, null, true);
+            await stockConnector.GetCandles("CBA.AX", Resolution.FiveMinutes);
+            await stockConnector.GetCandles("CBA.AX", Resolution.FiveMinutes, null, null, true);
+            await stockConnector.GetCandles("CBA.AX", Resolution.FifteenMinutes);
+            await stockConnector.GetCandles("CBA.AX", Resolution.FifteenMinutes, null, null, true);
+            await stockConnector.GetCandles("CBA.AX", Resolution.ThirtyMinutes);
+            await stockConnector.GetCandles("CBA.AX", Resolution.ThirtyMinutes, null, null, true);
+            await stockConnector.GetCandles("CBA.AX", Resolution.OneHour);
+            await stockConnector.GetCandles("CBA.AX", Resolution.OneHour, null, null, true);
+            await stockConnector.GetCandles("CBA.AX", Resolution.Day);
+            await stockConnector.GetCandles("CBA.AX", Resolution.Day, null, null, true);
+
             CloseLogger();
         }
 
@@ -64,7 +73,5 @@ namespace InvestmentSimulator
                 //.AddCommandLine(args)
                 .Build();
         }
-
-        
     }
 }

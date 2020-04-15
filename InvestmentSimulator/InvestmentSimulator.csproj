@@ -7,6 +7,37 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200402040019_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200402040019_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200402051025_Migration2004021610.cs" />
+    <Compile Remove="Migrations\20200402051025_Migration2004021610.Designer.cs" />
+    <Compile Remove="Migrations\20200404014413_InitialCreate.cs" />
+    <Compile Remove="Migrations\20200404014413_InitialCreate.Designer.cs" />
+    <Compile Remove="Migrations\20200404021522_001.cs" />
+    <Compile Remove="Migrations\20200404021522_001.Designer.cs" />
+    <Compile Remove="Migrations\20200404021802_001.cs" />
+    <Compile Remove="Migrations\20200404021802_001.Designer.cs" />
+    <Compile Remove="Migrations\20200404033445_002.cs" />
+    <Compile Remove="Migrations\20200404033445_002.Designer.cs" />
+    <Compile Remove="Migrations\20200404033707_001.cs" />
+    <Compile Remove="Migrations\20200404033707_001.Designer.cs" />
+    <Compile Remove="Migrations\20200404050219_002.cs" />
+    <Compile Remove="Migrations\20200404050219_002.Designer.cs" />
+    <Compile Remove="Migrations\20200405071826_003.cs" />
+    <Compile Remove="Migrations\20200405071826_003.Designer.cs" />
+    <Compile Remove="Migrations\20200408094512_001.cs" />
+    <Compile Remove="Migrations\20200408094512_001.Designer.cs" />
+    <Compile Remove="Migrations\20200409064024_001.cs" />
+    <Compile Remove="Migrations\20200409064024_001.Designer.cs" />
+    <Compile Remove="Migrations\20200410024724_002.cs" />
+    <Compile Remove="Migrations\20200410024724_002.Designer.cs" />
+    <Compile Remove="Migrations\20200410040505_003.cs" />
+    <Compile Remove="Migrations\20200410040505_003.Designer.cs" />
+    <Compile Remove="Migrations\20200410040632_001.cs" />
+    <Compile Remove="Migrations\20200410040632_001.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.3">
