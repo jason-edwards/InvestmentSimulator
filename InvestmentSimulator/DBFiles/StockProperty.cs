@@ -60,5 +60,7 @@ namespace InvestmentSimulator.DBFiles
 
         [ForeignKey("AssetFK")]
         public ICollection<StockSplit> StockSplits { get; set; }
+
+        public bool Watching { get; set; }
     }
 }

@@ -19,5 +19,8 @@ namespace InvestmentSimulator.DBFiles
 
         /// Amount in currency
         public decimal Amount { get; set; }
+
+        /// Percent yeild. Amount / Shareprice at open.
+        public decimal Yield { get; set; }
     }
 }

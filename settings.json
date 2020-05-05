@@ -1,4 +1,6 @@
 {
   "finnhubkeypath": "../finnhubkey.txt",
-  "logdbpath": "../Logs/log.sqlite"
+  "logdbpath": "../../../../Logs/log.sqlite",
+  "filepath":  "../"
+
 }

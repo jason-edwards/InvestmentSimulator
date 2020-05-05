@@ -35,7 +35,7 @@ namespace InvestmentSimulator.Connector
                     
                     if (!(query.Count() > 0)) 
                     {
-                        _dbContext.Add(new StockProperty { Symbol = symbol.CandleSymbol, DisplaySymbol = symbol.DisplaySymbol, ExchangeFK = result.First().ExchangeId });
+                        _dbContext.Add(new StockProperty { Symbol = symbol.CandleSymbol, DisplaySymbol = symbol.DisplaySymbol, ExchangeFK = result.First().ExchangeId, Watching = false });
                     } else
                     {
                         Log.Information($"Record not added, Table[AssetProperties]: {query.FirstOrDefault().Symbol} already exists in db and was not added.");
@@ -55,6 +55,8 @@ namespace InvestmentSimulator.Connector
         {
             DateTime to = endDate ?? DateTime.Now;
             DateTime from = startDate ?? DateTime.Now.AddDays(-7);
+
+            from = (from < new DateTime(1999, 01, 01)) ? new DateTime(1999, 01, 01) : from;
 
             var stockQuery = _dbContext.StockProperties
                 .Where(b => b.Symbol == symbol);
@@ -98,10 +100,12 @@ namespace InvestmentSimulator.Connector
                             $"Combination of symbol:{symbol} and time:{candle.Timestamp} already exists in db and was not added.");
                     }
 
-                    AddPriceFromCandle(candle, symbolKey, resolution);
+                    AddPriceFromCandle(candle, symbolKey, resolution, adjusted);
 
 
                 }
+
+
                 _dbContext.SaveChanges();
             } 
             else
@@ -133,12 +137,31 @@ namespace InvestmentSimulator.Connector
 
                 foreach (var dividend in dividends)
                 {
+                    var priceQuery = _dbContext.StockPrices
+                        .Where(b => b.TimeStamp == dividend.Date 
+                        && b.AssetFK == symbolKey 
+                        && b.Adjusted == false);
+
+                    decimal price;
+
+                    if (priceQuery.Count() == 0)
+                    {
+                        await GetCandles(symbol, Resolution.Day, dividend.Date, null, false);
+                    }
+
+                    priceQuery = _dbContext.StockPrices
+                        .Where(b => b.TimeStamp == dividend.Date 
+                        && b.AssetFK == symbolKey
+                        && b.Adjusted == false);
+
+                    price = priceQuery.First().Amount;
+
                     var record = dividendQuery
                         .Where(b => b.Date == dividend.Date);
 
                     if (record.Count() == 0)
                     {
-                        _dbContext.Dividends.Add(new DividendModel { AssetFK = symbolKey, Date = dividend.Date, Amount = dividend.Amount });
+                        _dbContext.Dividends.Add(new DividendModel { AssetFK = symbolKey, Date = dividend.Date, Amount = dividend.Amount, Yield = dividend.Amount/price });
                     }
                     else
                     {
@@ -298,10 +321,25 @@ namespace InvestmentSimulator.Connector
             }
         }
 
-        private void AddPriceFromCandle(Candle candle, long symbolKey, Resolution resolution)
+        public void SetSymbolWatching(string symbol, bool watching)
+        {
+            var result = _dbContext.StockProperties
+                .Where(b => b.Symbol == symbol);
+
+            if(result.Count() > 0)
+            {
+                result.First().Watching = watching;
+            }
+            else
+            {
+                Log.Information($"Record was not modified, Table[AssetProperties]: {symbol} does not exist in db. StockProperties.Watching not set to {watching}.");
+            }
+        }
+
+        private void AddPriceFromCandle(Candle candle, long symbolKey, Resolution resolution, bool adjusted)
         {
             var record = _dbContext.StockPrices
-                .Where(b => b.AssetFK == symbolKey && b.TimeStamp == candle.Timestamp);
+                .Where(b => b.AssetFK == symbolKey && b.TimeStamp == candle.Timestamp && b.Adjusted == adjusted);
 
             if (record.Count() == 0)
             {
@@ -309,7 +347,8 @@ namespace InvestmentSimulator.Connector
                 {
                     Amount = candle.Open,
                     TimeStamp = candle.Timestamp,
-                    AssetFK = symbolKey
+                    AssetFK = symbolKey,
+                    Adjusted = adjusted
                 });
             }
 
@@ -343,11 +382,12 @@ namespace InvestmentSimulator.Connector
                     {
                         Amount = candle.Close,
                         AssetFK = symbolKey,
-                        TimeStamp = closingTime ?? new DateTime()
+                        TimeStamp = closingTime ?? new DateTime(),
+                        Adjusted = adjusted
                     });
                 }
             }
-            _dbContext.SaveChanges();
+            //_dbContext.SaveChanges();
         }
     }
 }

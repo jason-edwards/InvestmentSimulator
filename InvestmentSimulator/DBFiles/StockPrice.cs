@@ -19,5 +19,7 @@ namespace InvestmentSimulator.DBFiles
 
         /// Current Price
         public decimal Amount { get; set; }
+
+        public bool Adjusted { get; set; }
     }
 }
