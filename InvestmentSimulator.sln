@@ -7,6 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InvestmentSimulator", "Inve
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ThreeFourteen.Finnhub.Client", "ThreeFourteen\src\ThreeFourteen.Finnhub.Client\ThreeFourteen.Finnhub.Client.csproj", "{09A83B82-B785-40C9-96A1-5E406D54EA3E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{1BFCC2CF-5B05-4FA1-81FE-CE7A993B0350}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

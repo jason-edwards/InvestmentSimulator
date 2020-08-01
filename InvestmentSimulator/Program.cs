@@ -31,9 +31,9 @@ namespace InvestmentSimulator
             var stockConnector = new StockConnector(client, dbContext);
             //await stockConnector.GetSymbols("AX");
 
-            var fileConnector = new FileConnector(config["filepath"] + "watchlist.csv", "Watchlist", dbContext);
+            var fileConnector = new FileConnector(config["filepath"] + "20200428splits.csv", "Splits");
 
-            fileConnector.Import();
+            fileConnector.ImportToStockDB(dbContext);
 
 
 

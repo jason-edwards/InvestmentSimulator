@@ -323,6 +323,7 @@ namespace InvestmentSimulator.Connector
 
         public void SetSymbolWatching(string symbol, bool watching)
         {
+            
             var result = _dbContext.StockProperties
                 .Where(b => b.Symbol == symbol);
 

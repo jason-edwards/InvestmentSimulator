@@ -1,0 +1,9 @@
+﻿InitialCapital,Brokerage,OrderSizeCurrency,OrderSizePercentage,CurrencyCutoverToPercentageAmount,MaxContractHeld,BuyCooldown,BuyCooldownRate
+100000,CommSec,10000,3,333333.3333,2,15,days
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace InvestmentSimulator.Connector.FileConnector
+﻿namespace InvestmentSimulator.Connector.FileConnector
 {
     public enum FileSystem
     {
@@ -14,6 +10,7 @@ namespace InvestmentSimulator.Connector.FileConnector
         Properties,
         Profiles,
         Splits,
-        Watchlist
+        Watchlist,
+        TradeConditions
     }
 }

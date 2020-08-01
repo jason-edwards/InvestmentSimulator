@@ -1,7 +1,7 @@
 ﻿using CsvHelper.Configuration.Attributes;
 using System;
 
-namespace InvestmentSimulator.Connector.FileConnectors
+namespace InvestmentSimulator.Connector.FileConnector
 {
     public class WatchlistFile
     {
